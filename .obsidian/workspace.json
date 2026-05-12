@@ -1,0 +1,222 @@
+{
+  "main": {
+    "id": "1121108ddb99ffb7",
+    "type": "split",
+    "children": [
+      {
+        "id": "e3d782b3da4f2d70",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "09594a55e8fa1738",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "OpenIT Full-Stack Bootcamp Notes/00 PostgreSQL to EF Core in ASP.NET Core Web API — Transition Reviewer, Guide, and Cheat Sheet.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "00 PostgreSQL to EF Core in ASP.NET Core Web API — Transition Reviewer, Guide, and Cheat Sheet"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "496fd6f0908a7471",
+    "type": "split",
+    "children": [
+      {
+        "id": "e49f296400604768",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "aa2f10729887a363",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "2fee45e5f609eed0",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "0855df4f88700bb2",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cbfa760d954094bd",
+    "type": "split",
+    "children": [
+      {
+        "id": "6f22e590d61a1006",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ed0cc6734cc8bb48",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "OpenIT Full-Stack Bootcamp/Day1 Data Formats REST APIs & HATEOAS.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Day1 Data Formats REST APIs & HATEOAS"
+            }
+          },
+          {
+            "id": "91d7c0b3ad82d065",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "OpenIT Full-Stack Bootcamp/Day1 Data Formats REST APIs & HATEOAS.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Day1 Data Formats REST APIs & HATEOAS"
+            }
+          },
+          {
+            "id": "064c60871af5b846",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "7e78a1301692d855",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "c72ee06f0dbff4f9",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "OpenIT Full-Stack Bootcamp/Day1 Data Formats REST APIs & HATEOAS.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Day1 Data Formats REST APIs & HATEOAS"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "09594a55e8fa1738",
+  "lastOpenFiles": [
+    "OpenIT Full-Stack Bootcamp Notes/00 ASP.NET Core Web API Cheat Sheet.md",
+    "OpenIT Full-Stack Bootcamp Notes/Day 5 Databases & PostgreSQL.md",
+    "OpenIT Full-Stack Bootcamp Notes/Day 1 Data Formats REST APIs & HATEOAS.md",
+    "OpenIT Full-Stack Bootcamp Notes/Day 2 Intro to CSharp and DOTNET WebAPIs.md",
+    "OpenIT Full-Stack Bootcamp Notes/00 PostgreSQL to EF Core in ASP.NET Core Web API — Transition Reviewer, Guide, and Cheat Sheet.md",
+    "OpenIT Full-Stack Bootcamp Notes/Day 5 PostgreSQL + EF Core in ASP.NET Core Web API.md",
+    "OpenIT Full-Stack Bootcamp Notes/PostgreSQL_to_EF_Core_ASPNET_Core_Transition_Guide_Reviewer_CheatSheet.md",
+    "OpenIT Full-Stack Bootcamp Notes/00 CSharp FundamentalsCheat Sheet.md",
+    "OpenIT Full-Stack Bootcamp Notes/00 ASP.NET Core Web API Reviewer.md",
+    "OpenIT Full-Stack Bootcamp Notes/Day 4 Middleware, Request Body Modification, and Random Grade Generator.md",
+    "OpenIT Full-Stack Bootcamp Notes/Day 3 Dependency Injection, services, interfaces, MVC pattern, service-injected controllers.md",
+    "OpenIT Full-Stack Bootcamp Notes/gruvbox_spac.jpg",
+    "OpenIT Full-Stack Bootcamp Notes/CR_4556F.tmp/VIVALDI.PACKED.7Z",
+    "OpenIT Full-Stack Bootcamp Notes/CR_4556F.tmp/SETUP.EX_",
+    "OpenIT Full-Stack Bootcamp Notes/CR_4556F.tmp/setup.exe",
+    "OpenIT Full-Stack Bootcamp Notes/CR_4556F.tmp",
+    "OpenIT Full-Stack Bootcamp Notes/Vivaldi.7.9.3970.60.x64.exe",
+    "OpenIT Full-Stack Bootcamp Notes/Unconfirmed 677189.crdownload",
+    "OpenIT Full-Stack Bootcamp Notes/Unconfirmed 374085.crdownload",
+    "OpenIT Full-Stack Bootcamp/Day 3 Dependency Injection, services, interfaces, MVC pattern, service-injected controllers.md",
+    "OpenIT Full-Stack Bootcamp Notes",
+    "OpenIT Full-Stack Bootcamp/Day 4 Middleware, Request Body Modification, and Random Grade Generator.md",
+    "OpenIT Full-Stack Bootcamp/00 ASP.NET Core Web API Reviewer.md",
+    "OpenIT Full-Stack Bootcamp/00 ASP.NET Core Web API Cheat Sheet.md",
+    "OpenIT Full-Stack Bootcamp/00 CSharp FundamentalsCheat Sheet.md",
+    "OpenIT Full-Stack Bootcamp/Unconfirmed 44211.crdownload",
+    "OpenIT Full-Stack Bootcamp/Unconfirmed 632581.crdownload",
+    "OpenIT Full-Stack Bootcamp/Day 2 Intro to CSharp and DOTNET WebAPIs.md",
+    "OpenIT Full-Stack Bootcamp/Day 1 Data Formats REST APIs & HATEOAS.md",
+    "1. How to Read C.md",
+    "OpenIT Full-Stack Bootcamp/CSharp_LINQ_WebAPI_Cheat_Sheet_Obsidian.md",
+    "OpenIT Full-Stack Bootcamp/Day 1.md",
+    "Welcome.md"
+  ]
+}

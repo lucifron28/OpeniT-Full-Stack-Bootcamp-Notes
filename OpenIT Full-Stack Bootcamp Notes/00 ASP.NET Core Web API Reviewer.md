@@ -92,55 +92,56 @@ Tags: #aspnet #dotnet #webapi #minimal-api #controllers #dto #services #dependen
 - [[#57. Dependency Injection Basics|57. Dependency Injection Basics]]
 - [[#58. Service Lifetimes|58. Service Lifetimes]]
 - [[#59. Singleton vs Scoped vs Transient|59. Singleton vs Scoped vs Transient]]
-- [[#60. DI and Database Mental Model|60. DI and Database Mental Model]]
+- [[#60. Multiple Implementations for the Same Interface|60. Multiple Implementations for the Same Interface]]
+- [[#61. DI and Database Mental Model|61. DI and Database Mental Model]]
 
 ## J. CRUD API Patterns
 
-- [[#61. GET All Pattern|61. GET All Pattern]]
-- [[#62. GET By Id Pattern|62. GET By Id Pattern]]
-- [[#63. POST Create Pattern|63. POST Create Pattern]]
-- [[#64. PUT Full Update Pattern|64. PUT Full Update Pattern]]
-- [[#65. PATCH Partial Update Pattern|65. PATCH Partial Update Pattern]]
-- [[#66. DELETE Pattern|66. DELETE Pattern]]
-- [[#67. Search, Filter, Sort, and Pagination Pattern|67. Search, Filter, Sort, and Pagination Pattern]]
-- [[#68. Stats Endpoint Pattern|68. Stats Endpoint Pattern]]
-- [[#69. Nested Resource Pattern|69. Nested Resource Pattern]]
+- [[#62. GET All Pattern|62. GET All Pattern]]
+- [[#63. GET By Id Pattern|63. GET By Id Pattern]]
+- [[#64. POST Create Pattern|64. POST Create Pattern]]
+- [[#65. PUT Full Update Pattern|65. PUT Full Update Pattern]]
+- [[#66. PATCH Partial Update Pattern|66. PATCH Partial Update Pattern]]
+- [[#67. DELETE Pattern|67. DELETE Pattern]]
+- [[#68. Search, Filter, Sort, and Pagination Pattern|68. Search, Filter, Sort, and Pagination Pattern]]
+- [[#69. Stats Endpoint Pattern|69. Stats Endpoint Pattern]]
+- [[#70. Nested Resource Pattern|70. Nested Resource Pattern]]
 
 ## K. Middleware and Pipeline
 
-- [[#70. What Middleware Is|70. What Middleware Is]]
-- [[#71. Built-In Middleware|71. Built-In Middleware]]
-- [[#72. Custom Inline Middleware|72. Custom Inline Middleware]]
-- [[#73. Custom Middleware Class|73. Custom Middleware Class]]
-- [[#74. Middleware Extension Method|74. Middleware Extension Method]]
-- [[#75. Middleware Order Matters|75. Middleware Order Matters]]
-- [[#76. Middleware vs Controller vs Service|76. Middleware vs Controller vs Service]]
-- [[#77. Request Body Middleware Preview|77. Request Body Middleware Preview]]
+- [[#71. What Middleware Is|71. What Middleware Is]]
+- [[#72. Built-In Middleware|72. Built-In Middleware]]
+- [[#73. Custom Inline Middleware|73. Custom Inline Middleware]]
+- [[#74. Custom Middleware Class|74. Custom Middleware Class]]
+- [[#75. Middleware Extension Method|75. Middleware Extension Method]]
+- [[#76. Middleware Order Matters|76. Middleware Order Matters]]
+- [[#77. Middleware vs Controller vs Service|77. Middleware vs Controller vs Service]]
+- [[#78. Request Body Middleware Preview|78. Request Body Middleware Preview]]
 
 ## L. Data Storage for Bootcamp Stage
 
-- [[#78. In-Memory Data Store|78. In-Memory Data Store]]
-- [[#79. Static Data vs Singleton Store|79. Static Data vs Singleton Store]]
-- [[#80. List, Dictionary, HashSet in Web APIs|80. List, Dictionary, HashSet in Web APIs]]
-- [[#81. Keeping Dictionary Lookup in Sync|81. Keeping Dictionary Lookup in Sync]]
-- [[#82. EF Core Preview|82. EF Core Preview]]
+- [[#79. In-Memory Data Store|79. In-Memory Data Store]]
+- [[#80. Static Data vs Singleton Store|80. Static Data vs Singleton Store]]
+- [[#81. List, Dictionary, HashSet in Web APIs|81. List, Dictionary, HashSet in Web APIs]]
+- [[#82. Keeping Dictionary Lookup in Sync|82. Keeping Dictionary Lookup in Sync]]
+- [[#83. EF Core Preview|83. EF Core Preview]]
 
 ## M. Testing and Debugging
 
-- [[#83. Running the API|83. Running the API]]
-- [[#84. Postman Testing Guide|84. Postman Testing Guide]]
-- [[#85. Sample Request Bodies|85. Sample Request Bodies]]
-- [[#86. Reading Responses|86. Reading Responses]]
-- [[#87. Common Errors and Fixes|87. Common Errors and Fixes]]
+- [[#84. Running the API|84. Running the API]]
+- [[#85. Postman Testing Guide|85. Postman Testing Guide]]
+- [[#86. Sample Request Bodies|86. Sample Request Bodies]]
+- [[#87. Reading Responses|87. Reading Responses]]
+- [[#88. Common Errors and Fixes|88. Common Errors and Fixes]]
 
 ## N. Complete Reference Example
 
-- [[#88. Complete Minimal API Student Example|88. Complete Minimal API Student Example]]
-- [[#89. Complete Modular Student API Example|89. Complete Modular Student API Example]]
-- [[#90. Endpoint Design Checklist|90. Endpoint Design Checklist]]
-- [[#91. Beginner Mistakes to Avoid|91. Beginner Mistakes to Avoid]]
-- [[#92. Quick Memorization Tables|92. Quick Memorization Tables]]
-- [[#93. Final Review Checklist|93. Final Review Checklist]]
+- [[#89. Complete Minimal API Student Example|89. Complete Minimal API Student Example]]
+- [[#90. Complete Modular Student API Example|90. Complete Modular Student API Example]]
+- [[#91. Endpoint Design Checklist|91. Endpoint Design Checklist]]
+- [[#92. Beginner Mistakes to Avoid|92. Beginner Mistakes to Avoid]]
+- [[#93. Quick Memorization Tables|93. Quick Memorization Tables]]
+- [[#94. Final Review Checklist|94. Final Review Checklist]]
 
 ---
 
@@ -198,7 +199,7 @@ Recommended sections:
 Recommended sections:
 
 ```text
-All sections from 1 to 93
+All sections from 1 to 94
 ```
 
 [[#Navigation|⬆ Back to Navigation]]
@@ -3062,7 +3063,319 @@ Singleton = once per app
 
 ---
 
-# 60. DI and Database Mental Model
+
+# 60. Multiple Implementations for the Same Interface
+
+ASP.NET Core DI can register more than one implementation for the same interface.
+
+Example:
+
+```csharp
+builder.Services.AddScoped<IUserService, UserService1>();
+builder.Services.AddScoped<IUserService, UserService2>();
+```
+
+This means both `UserService1` and `UserService2` are registered as possible `IUserService` implementations.
+
+## Single Service Injection
+
+If a class asks for only one service:
+
+```csharp
+public class SomeController : ControllerBase
+{
+    private readonly IUserService _userService;
+
+    public SomeController(IUserService userService)
+    {
+        _userService = userService;
+    }
+}
+```
+
+ASP.NET Core gives the **last registered implementation**.
+
+In this example:
+
+```csharp
+builder.Services.AddScoped<IUserService, UserService1>();
+builder.Services.AddScoped<IUserService, UserService2>();
+```
+
+Single injection gives:
+
+```text
+UserService2
+```
+
+Because `UserService2` was registered last.
+
+## Injecting All Implementations
+
+If a class asks for all services:
+
+```csharp
+public class SomeController : ControllerBase
+{
+    private readonly IEnumerable<IUserService> _userServices;
+
+    public SomeController(IEnumerable<IUserService> userServices)
+    {
+        _userServices = userServices;
+    }
+}
+```
+
+ASP.NET Core gives all registered implementations in registration order:
+
+```text
+UserService1
+UserService2
+```
+
+Summary:
+
+| Injection Type | Result |
+|---|---|
+| `IUserService` | last registered implementation |
+| `IEnumerable<IUserService>` | all registered implementations in registration order |
+
+## When This Is Useful
+
+Multiple implementations are useful when one interface represents a common behavior, but the app has different versions of that behavior.
+
+Common examples:
+
+```text
+validators
+processors
+handlers
+strategies
+notification senders
+rule checkers
+exporters
+payment providers
+file processors
+```
+
+Example idea:
+
+```text
+IStudentValidator
+↓
+NameValidator
+AgeValidator
+SectionValidator
+```
+
+Each validator checks one rule.
+
+The service can inject all validators and run them one by one.
+
+## Example: Multiple Validators
+
+Interface:
+
+```csharp
+public interface IStudentValidator
+{
+    bool IsValid(StudentCreateDto dto);
+    string ErrorMessage { get; }
+}
+```
+
+First implementation:
+
+```csharp
+public class StudentNameValidator : IStudentValidator
+{
+    public string ErrorMessage => "Student name is required.";
+
+    public bool IsValid(StudentCreateDto dto)
+    {
+        return !string.IsNullOrWhiteSpace(dto.FirstName)
+            && !string.IsNullOrWhiteSpace(dto.LastName);
+    }
+}
+```
+
+Second implementation:
+
+```csharp
+public class StudentAgeValidator : IStudentValidator
+{
+    public string ErrorMessage => "Student age must be between 1 and 120.";
+
+    public bool IsValid(StudentCreateDto dto)
+    {
+        return dto.Age >= 1 && dto.Age <= 120;
+    }
+}
+```
+
+Register both:
+
+```csharp
+builder.Services.AddScoped<IStudentValidator, StudentNameValidator>();
+builder.Services.AddScoped<IStudentValidator, StudentAgeValidator>();
+```
+
+Inject all validators into a service:
+
+```csharp
+public class StudentService
+{
+    private readonly IEnumerable<IStudentValidator> _validators;
+
+    public StudentService(IEnumerable<IStudentValidator> validators)
+    {
+        _validators = validators;
+    }
+
+    public (bool Success, string? Error) Validate(StudentCreateDto dto)
+    {
+        foreach (var validator in _validators)
+        {
+            if (!validator.IsValid(dto))
+            {
+                return (false, validator.ErrorMessage);
+            }
+        }
+
+        return (true, null);
+    }
+}
+```
+
+Usage:
+
+```csharp
+var validation = Validate(dto);
+
+if (!validation.Success)
+{
+    throw new ArgumentException(validation.Error);
+}
+```
+
+## Example: Strategy Pattern
+
+Interface:
+
+```csharp
+public interface INotificationSender
+{
+    string Channel { get; }
+    void Send(string message);
+}
+```
+
+Email implementation:
+
+```csharp
+public class EmailNotificationSender : INotificationSender
+{
+    public string Channel => "email";
+
+    public void Send(string message)
+    {
+        Console.WriteLine($"Email sent: {message}");
+    }
+}
+```
+
+SMS implementation:
+
+```csharp
+public class SmsNotificationSender : INotificationSender
+{
+    public string Channel => "sms";
+
+    public void Send(string message)
+    {
+        Console.WriteLine($"SMS sent: {message}");
+    }
+}
+```
+
+Register both:
+
+```csharp
+builder.Services.AddScoped<INotificationSender, EmailNotificationSender>();
+builder.Services.AddScoped<INotificationSender, SmsNotificationSender>();
+```
+
+Inject all:
+
+```csharp
+public class NotificationService
+{
+    private readonly IEnumerable<INotificationSender> _senders;
+
+    public NotificationService(IEnumerable<INotificationSender> senders)
+    {
+        _senders = senders;
+    }
+
+    public void Send(string channel, string message)
+    {
+        var sender = _senders.FirstOrDefault(s =>
+            s.Channel.Equals(channel, StringComparison.OrdinalIgnoreCase));
+
+        if (sender is null)
+        {
+            throw new InvalidOperationException("Notification channel not supported.");
+        }
+
+        sender.Send(message);
+    }
+}
+```
+
+This allows the service to choose an implementation at runtime.
+
+## Common Mistake
+
+This registration:
+
+```csharp
+builder.Services.AddScoped<IUserService, UserService1>();
+builder.Services.AddScoped<IUserService, UserService2>();
+```
+
+does **not** mean ASP.NET randomly chooses between the two.
+
+It means:
+
+```text
+Single IUserService injection gets the last one.
+IEnumerable<IUserService> injection gets all of them.
+```
+
+## Quick Memory
+
+```text
+IUserService
+= one service
+= last registered implementation
+
+IEnumerable<IUserService>
+= many services
+= all registered implementations in registration order
+```
+
+Key takeaway:
+
+```text
+Use single interface injection when there should only be one active implementation.
+Use IEnumerable<T> injection when multiple implementations should work together.
+```
+
+[[#Navigation|⬆ Back to Navigation]]
+
+---
+
+# 61. DI and Database Mental Model
 
 With in-memory store:
 
@@ -3106,7 +3419,7 @@ Do not use Singleton for services that directly depend on DbContext.
 
 ---
 
-# 61. GET All Pattern
+# 62. GET All Pattern
 
 ```csharp
 [HttpGet]
@@ -3139,7 +3452,7 @@ Status:
 
 ---
 
-# 62. GET By Id Pattern
+# 63. GET By Id Pattern
 
 ```csharp
 [HttpGet("{id:int}")]
@@ -3167,7 +3480,7 @@ Status:
 
 ---
 
-# 63. POST Create Pattern
+# 64. POST Create Pattern
 
 ```csharp
 [HttpPost]
@@ -3193,7 +3506,7 @@ Status:
 
 ---
 
-# 64. PUT Full Update Pattern
+# 65. PUT Full Update Pattern
 
 ```csharp
 [HttpPut("{id:int}")]
@@ -3220,7 +3533,7 @@ Replace/update the full resource.
 
 ---
 
-# 65. PATCH Partial Update Pattern
+# 66. PATCH Partial Update Pattern
 
 ```csharp
 [HttpPatch("{id:int}")]
@@ -3265,7 +3578,7 @@ if (dto.Age.HasValue)
 
 ---
 
-# 66. DELETE Pattern
+# 67. DELETE Pattern
 
 ```csharp
 [HttpDelete("{id:int}")]
@@ -3293,7 +3606,7 @@ Status:
 
 ---
 
-# 67. Search, Filter, Sort, and Pagination Pattern
+# 68. Search, Filter, Sort, and Pagination Pattern
 
 Controller:
 
@@ -3348,7 +3661,7 @@ public List<StudentResponseDto> Search(
 
 ---
 
-# 68. Stats Endpoint Pattern
+# 69. Stats Endpoint Pattern
 
 Controller:
 
@@ -3393,7 +3706,7 @@ public class GenderStatsDto
 
 ---
 
-# 69. Nested Resource Pattern
+# 70. Nested Resource Pattern
 
 Example:
 
@@ -3431,7 +3744,7 @@ sectionCode identifies the parent section.
 
 ---
 
-# 70. What Middleware Is
+# 71. What Middleware Is
 
 Middleware runs during the request pipeline.
 
@@ -3463,7 +3776,7 @@ app.Use(async (context, next) =>
 
 ---
 
-# 71. Built-In Middleware
+# 72. Built-In Middleware
 
 Common middleware:
 
@@ -3491,7 +3804,7 @@ MapControllers
 
 ---
 
-# 72. Custom Inline Middleware
+# 73. Custom Inline Middleware
 
 ```csharp
 app.Use(async (context, next) =>
@@ -3510,7 +3823,7 @@ Good for quick tests.
 
 ---
 
-# 73. Custom Middleware Class
+# 74. Custom Middleware Class
 
 ```csharp
 public class RequestLoggingMiddleware
@@ -3543,7 +3856,7 @@ app.UseMiddleware<RequestLoggingMiddleware>();
 
 ---
 
-# 74. Middleware Extension Method
+# 75. Middleware Extension Method
 
 ```csharp
 public static class RequestLoggingMiddlewareExtensions
@@ -3565,7 +3878,7 @@ app.UseRequestLogging();
 
 ---
 
-# 75. Middleware Order Matters
+# 76. Middleware Order Matters
 
 Bad:
 
@@ -3592,7 +3905,7 @@ app.UseAuthorization();
 
 ---
 
-# 76. Middleware vs Controller vs Service
+# 77. Middleware vs Controller vs Service
 
 | Task | Best Place |
 |---|---|
@@ -3615,7 +3928,7 @@ Business/data logic = service
 
 ---
 
-# 77. Request Body Middleware Preview
+# 78. Request Body Middleware Preview
 
 Request body is a stream:
 
@@ -3653,7 +3966,7 @@ context.Request.Body.Position = 0;
 
 ---
 
-# 78. In-Memory Data Store
+# 79. In-Memory Data Store
 
 ```csharp
 public class InMemoryDataStore
@@ -3694,7 +4007,7 @@ public class StudentService
 
 ---
 
-# 79. Static Data vs Singleton Store
+# 80. Static Data vs Singleton Store
 
 Static list:
 
@@ -3727,7 +4040,7 @@ are not real database persistence
 
 ---
 
-# 80. List, Dictionary, HashSet in Web APIs
+# 81. List, Dictionary, HashSet in Web APIs
 
 List:
 
@@ -3759,7 +4072,7 @@ HashSet = unique allowed values
 
 ---
 
-# 81. Keeping Dictionary Lookup in Sync
+# 82. Keeping Dictionary Lookup in Sync
 
 Create:
 
@@ -3791,7 +4104,7 @@ StudentLookup[id] = updatedStudent;
 
 ---
 
-# 82. EF Core Preview
+# 83. EF Core Preview
 
 In-memory LINQ:
 
@@ -3818,7 +4131,7 @@ EF Core LINQ translates to SQL and runs on database.
 
 ---
 
-# 83. Running the API
+# 84. Running the API
 
 Create project:
 
@@ -3856,7 +4169,7 @@ Now listening on: https://localhost:xxxx
 
 ---
 
-# 84. Postman Testing Guide
+# 85. Postman Testing Guide
 
 Steps:
 
@@ -3882,7 +4195,7 @@ Content-Type: application/json
 
 ---
 
-# 85. Sample Request Bodies
+# 86. Sample Request Bodies
 
 POST student:
 
@@ -3929,7 +4242,7 @@ POST section:
 
 ---
 
-# 86. Reading Responses
+# 87. Reading Responses
 
 Check:
 
@@ -3972,7 +4285,7 @@ Not found:
 
 ---
 
-# 87. Common Errors and Fixes
+# 88. Common Errors and Fixes
 
 ## 404 Not Found
 
@@ -4030,7 +4343,7 @@ app.MapControllers();
 
 ---
 
-# 88. Complete Minimal API Student Example
+# 89. Complete Minimal API Student Example
 
 ```csharp
 var builder = WebApplication.CreateBuilder(args);
@@ -4104,7 +4417,7 @@ public class StudentCreateDto
 
 ---
 
-# 89. Complete Modular Student API Example
+# 90. Complete Modular Student API Example
 
 ## Model
 
@@ -4343,7 +4656,7 @@ app.Run();
 
 ---
 
-# 90. Endpoint Design Checklist
+# 91. Endpoint Design Checklist
 
 Good:
 
@@ -4381,7 +4694,7 @@ Put business logic in services.
 
 ---
 
-# 91. Beginner Mistakes to Avoid
+# 92. Beginner Mistakes to Avoid
 
 ```text
 Putting all logic in Program.cs.
@@ -4402,7 +4715,7 @@ Forgetting ToList after LINQ query when a List is needed.
 
 ---
 
-# 92. Quick Memorization Tables
+# 93. Quick Memorization Tables
 
 ## Minimal API vs Controller
 
@@ -4466,7 +4779,7 @@ Forgetting ToList after LINQ query when a List is needed.
 
 ---
 
-# 93. Final Review Checklist
+# 94. Final Review Checklist
 
 ```text
 [ ] I can explain what a Web API is.
@@ -4486,6 +4799,7 @@ Forgetting ToList after LINQ query when a List is needed.
 [ ] I can create a service interface.
 [ ] I can inject a service into a controller.
 [ ] I understand Singleton, Scoped, and Transient.
+[ ] I understand multiple implementations for the same interface.
 [ ] I can write basic CRUD endpoints.
 [ ] I can use LINQ inside services.
 [ ] I understand middleware basics.
